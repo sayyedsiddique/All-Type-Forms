@@ -1,0 +1,67 @@
+@import url("http://fonts.cdnfonts.com/css/galano-grotesque-alt");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700;900&display=swap');
+
+:root{
+  --main-bg-color: #171F3A;
+  --primary-black-color: hsl(260, 11%, 11%);
+  --secondary-black-color: #4d4d4d;
+  --orange-color: #ee741f;
+  --red-color: #ee1f45;
+  --green-color: #008000;
+  --white-color: #fff;
+  --back-color: #000;
+  --light-black-color: #3a3a3a;
+  --light-gray-color: #F2F2F2;
+  --light-blue-color: #0d6efd;
+  --gray-color:#808080;
+  --secondary-gray-color: #dddddd;
+  --border-color: #ced4da;
+  --btn-hover-color: #483d8b;
+
+
+  --grid-color: #F2F2F2;
+  --main-bg-color: #171F3A;
+  --topHeader-bg-color:  #fff;
+  --text-color : #000;
+  --mainContent-bg-color:#fff;
+  --button-bg-color: #171F3A;
+  --button-color:#fff;
+  --product-text-color:rgba(0, 0, 0, 0.6);
+  --table-bg-color::#fff;
+  --persent-button-bg: #171F3A;
+  --persent-button:#fff;
+  --toggle-button-bg: #171F3A;
+  --cart-bg-color:#fff;
+  --checkbox-color:var(--light-blue-color);
+  --online-or-button:var(--light-gray-color);
+  --black-white:#171F3A;
+  --step-bg-color:#9E9E9E;
+  --step-text:var(--white-color)
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Galano Grotesque", sans-serif;
+}
+
+body{
+  font-family: "Galano Grotesque", sans-serif;
+}
+
+/* Mobile input field with country code */
+.react-tel-input input[type="text"],
+.react-tel-input input[type="tel"] {
+  position: relative;
+  z-index: 0;
+  margin-top: 0 !important;
+  outline: 1px solid var(--gray-color);
+  margin-bottom: 0 !important;
+  height: 45;
+  color: var(--back-color);
+  border-radius: 5px;
+  font-size: 17px;
+  border: 1px solid var(--gray-color);
+  margin-bottom: 10px;
+}
