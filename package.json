@@ -23,6 +23,7 @@
     "react-dom": "^18.2.0",
     "react-icon": "^1.0.0",
     "react-icons": "^4.8.0",
+    "react-otp-input": "^2.4.0",
     "react-phone-input-2": "^2.15.1",
     "react-router-dom": "^6.11.2",
     "styled-components": "^5.3.10"

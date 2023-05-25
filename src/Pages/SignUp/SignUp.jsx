@@ -32,14 +32,62 @@ const Registration = () => {
     confirmPassword: "",
   });
 
+  const [errors, setErrors] = useState({
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  console.log("fields ", fields)
+  console.log("errors ", errors)
+
+  const inputHandler = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    if(name === "email"){
+      setErrors({...errors, email: ""})
+      setFields({...fields, email: value})
+    } else if(name === "phone"){
+      setErrors({...errors, phone: ""})
+      setFields({...fields, phone: value})
+    }else if(name === "password"){
+      setErrors({...errors, password: ""})
+      setFields({...fields, password: value})
+    }else if(name === "confirmPassword"){
+      setErrors({...errors, confirmPassword: ""})
+      setFields({...fields, confirmPassword: value})
+    }
+  }
+
+  const validation = () => {
+    if(fields.email === ""){
+      setErrors({...errors, email: "Please enter your email"})
+      return false
+    } else if(fields.phone === ""){
+      setErrors({...errors, phone: "Please enter your phone"})
+      return false
+    } else if(fields.password === ""){
+      setErrors({...errors, password: "Please enter your password"})
+      return false
+    } else if(fields.confirmPassword === ""){
+      setErrors({...errors, confirmPassword: "Please enter your confirmPassword"})
+      return false
+    }
+
+    return true
+  }
+
   //   Register with Email or Mobile handle
   const registerWithHandler = () => {
+    setFields({...fields, email: "", phone: ""})
     setIsEmail(!isEmail);
   };
 
   //   Sign in handler navigate to login page
   const signInHandler = () => {
-    navigate("/signin");
+    navigate("/sign-in");
   };
 
   const showPasswordHandler = () => {
@@ -48,6 +96,14 @@ const Registration = () => {
 
   const confirmPasswordHandler = () => {
     seShowConfirmPassword(!showConfirmPassword)
+  }
+
+  const submitHandler = () => {
+    const val = validation()
+
+    if(val){
+      navigate('/sign-up')
+    }
   }
 
   return (
@@ -78,31 +134,34 @@ const Registration = () => {
                 placeholder={"Enter your email"}
                 id="outlined-size-small"
                 size="small"
-                name="productName"
+                name="email"
                 // inputRef={prodNameInputRef}
-                // onChange={productInputHanlder}
+                onChange={inputHandler}
+                value={fields.email}
               />
-              {/* {error && error?.productName && (
-                <span className="text-danger">{error?.productName}</span>
-              )} */}
+              {errors && errors?.email && (
+                <span className="text-danger">{errors?.email}</span>
+              )}
             </div>
           ) : (
-            <div className="input_container phone_container mb-3">
+            <div className="input_container mb-3">
               <InputLabel style={{ color: "var(--product-text-color)" }}>
                 Mobile no
                 <span className="text-danger">*</span>
               </InputLabel>
-              <PhoneInput
-                country="in"
-                containerStyle={{ height: 45, width: "100%" }}
-                inputStyle={{ height: 45, width: "100%" }}
-                searchClass="search-class"
-                enableSearch
-                disableSearchIcon
-                countryCodeEditable={false}
+              <TextField
+                style={{ backgroundColor: "var( --light-gray-color)" }}
+                placeholder={"Enter your mobile no"}
+                id="outlined-size-small"
+                size="small"
+                name="phone"
+                // inputRef={prodNameInputRef}
+                onChange={inputHandler}
                 value={fields.phone}
-                //   onChange={(phone) => validate(phone, "phone")}
               />
+              {errors && errors?.phone && (
+                <span className="text-danger">{errors?.phone}</span>
+              )}
             </div>
           )}
           <div className="input_container mb-3">
@@ -188,7 +247,7 @@ const Registration = () => {
                 fontSize: "1.1rem",
                 letterSpacing: "1px",
               }}
-              // onClick={submitHandler}
+              onClick={submitHandler}
             >
               Register
             </Button>

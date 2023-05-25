@@ -52,7 +52,7 @@ const ForgetPassword = () => {
         />
       </div>
       <div className="registration_right">
-        <h1 className="heading_h1">Forget your password</h1>
+        <h1 className="heading_h1">Forgot your password</h1>
         {/* <h5 className="heading_h5">Sign in to your account</h5> */}
 
         <div className="login_with_container" onClick={registerWithHandler}>
@@ -83,22 +83,23 @@ const ForgetPassword = () => {
               )} */}
           </div>
         ) : (
-          <div className="input_container phone_container mb-3">
+          <div className="input_container mb-3">
             <InputLabel style={{ color: "var(--product-text-color)" }}>
               Mobile no
               <span className="text-danger">*</span>
             </InputLabel>
-            <PhoneInput
-              country="in"
-              containerStyle={{ height: 45, width: "100%" }}
-              inputStyle={{ height: 45, width: "100%" }}
-              searchClass="search-class"
-              enableSearch
-              disableSearchIcon
-              countryCodeEditable={false}
-              value={fields.phone}
-              //   onChange={(phone) => validate(phone, "phone")}
+            <TextField
+              style={{ backgroundColor: "var( --light-gray-color)" }}
+              placeholder={"Enter your mobile no"}
+              id="outlined-size-small"
+              size="small"
+              name="mobile"
+              // inputRef={prodNameInputRef}
+              // onChange={productInputHanlder}
             />
+            {/* {error && error?.productName && (
+              <span className="text-danger">{error?.productName}</span>
+            )} */}
           </div>
         )}
         {/* <div className="input_container mb-3">
@@ -143,7 +144,7 @@ const ForgetPassword = () => {
             <p
               className="heading_para"
               style={{ cursor: "pointer" }}
-              onClick={() => navigate("/registration")}
+              onClick={() => navigate("/")}
             >
               <BiArrowBack /> Go back to sign in page
             </p>
