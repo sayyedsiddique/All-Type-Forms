@@ -18,6 +18,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import PhoneInput from "react-phone-input-2";
 import { useNavigate } from "react-router-dom";
 import CardWithTwoSection from "../../Components/CardBox/CardWithTwoSection";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -39,49 +40,59 @@ const Registration = () => {
     confirmPassword: "",
   });
 
-  console.log("fields ", fields)
-  console.log("errors ", errors)
+  // console.log("fields ", fields);
+  console.log("errors ", errors);
 
   const inputHandler = (e) => {
     const name = e.target.name;
     const value = e.target.value;
 
-    if(name === "email"){
-      setErrors({...errors, email: ""})
-      setFields({...fields, email: value})
-    } else if(name === "phone"){
-      setErrors({...errors, phone: ""})
-      setFields({...fields, phone: value})
-    }else if(name === "password"){
-      setErrors({...errors, password: ""})
-      setFields({...fields, password: value})
-    }else if(name === "confirmPassword"){
-      setErrors({...errors, confirmPassword: ""})
-      setFields({...fields, confirmPassword: value})
+    if (name === "email") {
+      setErrors({ ...errors, email: "" });
+      setFields({ ...fields, email: value });
+    } else if (name === "phone") {
+      setErrors({ ...errors, phone: "" });
+      setFields({ ...fields, phone: value });
+    } else if (name === "password") {
+      setErrors({ ...errors, password: "" });
+      setFields({ ...fields, password: value });
+    } else if (name === "confirmPassword") {
+      setErrors({ ...errors, confirmPassword: "" });
+      setFields({ ...fields, confirmPassword: value });
     }
-  }
+  };
 
   const validation = () => {
-    if(fields.email === ""){
-      setErrors({...errors, email: "Please enter your email"})
-      return false
-    } else if(fields.phone === ""){
-      setErrors({...errors, phone: "Please enter your phone"})
-      return false
-    } else if(fields.password === ""){
-      setErrors({...errors, password: "Please enter your password"})
-      return false
-    } else if(fields.confirmPassword === ""){
-      setErrors({...errors, confirmPassword: "Please enter your confirmPassword"})
-      return false
+    // Perform email validation
+    const regexEmail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;  
+
+    if (fields.email === "") {
+      setErrors({ ...errors, email: "Please enter your email" });
+      return false;
+    }
+    else if (isEmail === false && fields.phone === "") {
+      setErrors({ ...errors, phone: "Please enter your phone" });
+      return false;
+    } else if (fields.password === "") {
+      setErrors({ ...errors, password: "Please enter your password" });
+      return false;
+    } else if (!isValidPass) {
+      setErrors({ ...errors, password: "Please enter a valid password" });
+      return false;
+    } else if (fields.confirmPassword === "") {
+      setErrors({
+        ...errors,
+        confirmPassword: "Please enter your confirmPassword",
+      });
+      return false;
     }
 
-    return true
-  }
+    return true;
+  };
 
   //   Register with Email or Mobile handle
   const registerWithHandler = () => {
-    setFields({...fields, email: "", phone: ""})
+    setFields({ ...fields, email: "", phone: "" });
     setIsEmail(!isEmail);
   };
 
@@ -95,22 +106,25 @@ const Registration = () => {
   };
 
   const confirmPasswordHandler = () => {
-    seShowConfirmPassword(!showConfirmPassword)
-  }
+    seShowConfirmPassword(!showConfirmPassword);
+  };
 
   const submitHandler = () => {
-    const val = validation()
+    const val = validation();
 
-    if(val){
-      navigate('/sign-up')
+    if (val) {
+      navigate("/sign-up");
     }
-  }
+  };
 
   return (
     <CardWithTwoSection>
       <>
         <div className="card_leftside">
-          <img src={"https://i.postimg.cc/Nj3LHpzd/person-using-laptop.png"} alt="" />
+          <img
+            src={"https://i.postimg.cc/Nj3LHpzd/person-using-laptop.png"}
+            alt=""
+          />
         </div>
         <div className="card_rightside">
           <h1 className="heading_h1">Create Account</h1>
@@ -175,7 +189,7 @@ const Registration = () => {
               id="outlined-size-small"
               size="small"
               name="password"
-              type={ showPassword ? "text" : "password"}
+              type={showPassword ? "text" : "password"}
               InputProps={{
                 endAdornment: showPassword ? (
                   <VisibilityOff
@@ -185,18 +199,43 @@ const Registration = () => {
                   />
                 ) : (
                   <Visibility
-                    style={{ cursor: "pointer", color: "var(--gray-color)"  }}
+                    style={{ cursor: "pointer", color: "var(--gray-color)" }}
                     position="end"
                     onClick={showPasswordHandler}
                   />
                 ),
               }}
               // inputRef={prodNameInputRef}
-              // onChange={productInputHanlder}
+              onChange={inputHandler}
             />
-            {/* {error && error?.productName && (
-                <span className="text-danger">{error?.productName}</span>
-              )} */}
+            {errors && errors?.password && (
+              <span className="text-danger">{errors?.password}</span>
+            )}
+          </div>
+          <div className="pass_must_have_container">
+            <p className="heading_para font-weight-bold mb-0">
+              Your password must have
+            </p>
+            <ul>
+              <li>
+                <AiOutlineCheckCircle />
+                <span>At least 1 lowercase letter</span>
+              </li>
+              <li>
+                <AiOutlineCheckCircle />
+                <span>At least 1 uppercase letter</span>
+              </li>
+              <li>
+                <AiOutlineCheckCircle />
+                <span>
+                  At least 1 number or special characters(! @ # $) letter
+                </span>
+              </li>
+              <li>
+                <AiOutlineCheckCircle />
+                <span>At least 1 lowercase letter</span>
+              </li>
+            </ul>
           </div>
           <div className="input_container mb-3">
             <InputLabel style={{ color: "var(--product-text-color)" }}>
@@ -209,7 +248,7 @@ const Registration = () => {
               id="outlined-size-small"
               size="small"
               name="confirmPassword"
-              type={ showConfirmPassword ? "text" : "password"}
+              type={showConfirmPassword ? "text" : "password"}
               InputProps={{
                 endAdornment: showConfirmPassword ? (
                   <VisibilityOff
@@ -226,11 +265,11 @@ const Registration = () => {
                 ),
               }}
               // inputRef={prodNameInputRef}
-              // onChange={productInputHanlder}
+              onChange={inputHandler}
             />
-            {/* {error && error?.productName && (
-                <span className="text-danger">{error?.productName}</span>
-              )} */}
+            {errors && errors?.confirmPassword && (
+              <span className="text-danger">{errors?.confirmPassword}</span>
+            )}
           </div>
           {/* <div
             className="forget_password text-right"
