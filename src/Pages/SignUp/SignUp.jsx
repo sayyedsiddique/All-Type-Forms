@@ -64,25 +64,41 @@ const Registration = () => {
 
   const validation = () => {
     // Perform email validation
-    const regexEmail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;  
+    const regexEmail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    const regexPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()]).{8,}$/;
+
+    const isEmailValid = regexEmail.test(fields.email);
+    const isPassValid = regexPass.test(fields.password);
 
     if (fields.email === "") {
       setErrors({ ...errors, email: "Please enter your email" });
       return false;
-    }
-    else if (isEmail === false && fields.phone === "") {
+    } else if (isEmailValid === false) {
+      setErrors({ ...errors, email: "Please enter valid email" });
+      return false;
+    } else if (isEmail === false && fields.phone === "") {
       setErrors({ ...errors, phone: "Please enter your phone" });
       return false;
     } else if (fields.password === "") {
       setErrors({ ...errors, password: "Please enter your password" });
       return false;
-    } else if (!isValidPass) {
-      setErrors({ ...errors, password: "Please enter a valid password" });
+    } else if (isPassValid === false) {
+      setErrors({
+        ...errors,
+        password:
+          "At least one uppercase, one lowercase, one number, one symbol and it should be 8 characters",
+      });
       return false;
     } else if (fields.confirmPassword === "") {
       setErrors({
         ...errors,
         confirmPassword: "Please enter your confirmPassword",
+      });
+      return false;
+    } else if (fields.password !== fields.confirmPassword) {
+      setErrors({
+        ...errors,
+        confirmPassword: "it's not match with password",
       });
       return false;
     }
@@ -212,7 +228,7 @@ const Registration = () => {
               <span className="text-danger">{errors?.password}</span>
             )}
           </div>
-          <div className="pass_must_have_container">
+          {/* <div className="pass_must_have_container">
             <p className="heading_para font-weight-bold mb-0">
               Your password must have
             </p>
@@ -236,7 +252,7 @@ const Registration = () => {
                 <span>At least 1 lowercase letter</span>
               </li>
             </ul>
-          </div>
+          </div> */}
           <div className="input_container mb-3">
             <InputLabel style={{ color: "var(--product-text-color)" }}>
               Confirm password
