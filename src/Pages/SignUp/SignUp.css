@@ -80,6 +80,13 @@
   /* width: fit-content; */
 }
 
+/* register material ui button */
+.css-17xq7a1-MuiLoadingButton-loadingIndicator {
+  position: relative !important;
+  padding-right: 0.5rem !important;
+  padding-bottom: 0.1rem !important;
+}
+
 .orDIvider {
   display: flex;
   justify-content: space-between;

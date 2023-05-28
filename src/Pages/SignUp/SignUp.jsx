@@ -22,6 +22,8 @@ import { useNavigate } from "react-router-dom";
 import CardWithTwoSection from "../../Components/CardBox/CardWithTwoSection";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
+import LoadingButton from '@mui/lab/LoadingButton';
+import SaveIcon from '@mui/icons-material/Save';      
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -29,7 +31,8 @@ const Registration = () => {
   const [showConfirmPassword, seShowConfirmPassword] = useState(false);
   const [isEmail, setIsEmail] = useState(true);
   const [openPopUp, setOpenPopUp] = useState(false);
-  const [loading, setLoading] = useState(false)
+  const [btnLoading, setBtnLoading] = useState(false);
+  console.log("btnLoading ",  btnLoading)
 
   const [fields, setFields] = useState({
     email: "",
@@ -140,16 +143,16 @@ const Registration = () => {
 
     if (val) {
       setOpenPopUp(true);
-      setLoading(true)
+      setBtnLoading(true);
 
       setTimeout(() => {
-        setLoading(false)
+        setBtnLoading(false);
         navigate("/sign-in");
       }, 3000);
     }
   };
 
-  return loading ? <LoadingSpinner /> :  (
+  return (
     <CardWithTwoSection>
       <>
         <div className="card_leftside">
@@ -309,7 +312,22 @@ const Registration = () => {
             <p className="heading_para" style={{ display: "inline", float: "right" }} onClick={() => navigate("/forgot-password")}>Forget password?</p>
           </div> */}
           <div className="mt-4" style={{ textAlign: "right" }}>
-            <Button
+            {/* <Button
+              variant="contained"
+              style={{
+                backgroundColor: "var(--button-bg-color)",
+                color: "var(--button-color)",
+                width: "100%",
+                fontSize: "1.1rem",
+                letterSpacing: "1px",
+              }}
+              onClick={submitHandler}
+            >
+              {loading ? <div className="button_inner"><LoadingSpinner /> Register  </div> : "Register"}
+            </Button>  */}
+            <LoadingButton
+              loading={btnLoading}
+              loadingPosition="start"
               variant="contained"
               style={{
                 backgroundColor: "var(--button-bg-color)",
@@ -321,7 +339,7 @@ const Registration = () => {
               onClick={submitHandler}
             >
               Register
-            </Button>
+            </LoadingButton>
             <div className="orDIvider">
               <hr />
               <p>OR</p>
