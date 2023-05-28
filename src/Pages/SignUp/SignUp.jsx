@@ -2,6 +2,7 @@ import { AccountCircle } from "@material-ui/icons";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import {
+  Alert,
   Box,
   Button,
   FormControl,
@@ -9,6 +10,7 @@ import {
   Input,
   InputAdornment,
   InputLabel,
+  Snackbar,
   TextField,
 } from "@mui/material";
 import React, { useState } from "react";
@@ -19,12 +21,15 @@ import PhoneInput from "react-phone-input-2";
 import { useNavigate } from "react-router-dom";
 import CardWithTwoSection from "../../Components/CardBox/CardWithTwoSection";
 import { AiOutlineCheckCircle } from "react-icons/ai";
+import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 
 const Registration = () => {
   const navigate = useNavigate();
   const [showPassword, seShowPassword] = useState(false);
   const [showConfirmPassword, seShowConfirmPassword] = useState(false);
   const [isEmail, setIsEmail] = useState(true);
+  const [openPopUp, setOpenPopUp] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const [fields, setFields] = useState({
     email: "",
@@ -125,15 +130,26 @@ const Registration = () => {
     seShowConfirmPassword(!showConfirmPassword);
   };
 
+  // Popup alert close handler
+  const popUpCloseHandler = () => {
+    setOpenPopUp(false);
+  };
+
   const submitHandler = () => {
     const val = validation();
 
     if (val) {
-      navigate("/sign-up");
+      setOpenPopUp(true);
+      setLoading(true)
+
+      setTimeout(() => {
+        setLoading(false)
+        navigate("/sign-in");
+      }, 3000);
     }
   };
 
-  return (
+  return loading ? <LoadingSpinner /> :  (
     <CardWithTwoSection>
       <>
         <div className="card_leftside">
@@ -317,6 +333,20 @@ const Registration = () => {
               </p>
             </div>
           </div>
+          <Snackbar
+            open={openPopUp}
+            autoHideDuration={3000}
+            onClose={popUpCloseHandler}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          >
+            <Alert
+              onClose={popUpCloseHandler}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              This is a success message!
+            </Alert>
+          </Snackbar>
         </div>
       </>
     </CardWithTwoSection>
