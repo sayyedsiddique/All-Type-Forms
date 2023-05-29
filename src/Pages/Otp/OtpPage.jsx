@@ -2,6 +2,7 @@ import { AccountCircle } from "@material-ui/icons";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import {
+  Alert,
   Box,
   Button,
   FormControl,
@@ -9,6 +10,7 @@ import {
   Input,
   InputAdornment,
   InputLabel,
+  Snackbar,
   TextField,
 } from "@mui/material";
 import React, { useState } from "react";
@@ -18,17 +20,21 @@ import PhoneInput from "react-phone-input-2";
 import { useNavigate } from "react-router-dom";
 import CardWithTwoSection from "../../Components/CardBox/CardWithTwoSection";
 import OtpInput from "react-otp-input";
+import { LoadingButton } from "@mui/lab";
 
-const OtpPage = () => {
+const OtpPage = (props) => {
   const navigate = useNavigate();
   const [showPassword, seShowPassword] = useState(false);
   const [isEmail, setIsEmail] = useState(true);
+  const [openPopUp, setOpenPopUp] = useState(false);
+  const [btnLoading, setBtnLoading] = useState(false);
 
   const [fields, setFields] = useState({
-    email: "",
-    phone: "",
-    password: "",
-    confirmPassword: "",
+    otp: "",
+  });
+
+  const [errors, setErrors] = useState({
+    otp: "",
   });
 
   //   Register with Email or Mobile handle
@@ -49,6 +55,42 @@ const OtpPage = () => {
 
   const showPasswordHandler = () => {
     seShowPassword(!showPassword);
+  };
+
+  // Popup alert close handler
+  const popUpCloseHandler = () => {
+    setOpenPopUp(false);
+  };
+
+  // OTP input fields handle
+  const OTPHandler = (otp) => {
+    setErrors({ ...errors, otp: "" });
+    setFields({ ...fields, otp: otp });
+  };
+
+  const validation = () => {
+    if (fields?.otp === "") {
+      setErrors({ ...errors, otp: "Please enter OTP" });
+      return false;
+    }
+
+    return true;
+  };
+
+  const submitHandler = () => {
+    const val = validation();
+
+    if (val) {
+      setOpenPopUp(true);
+      setBtnLoading(true);
+
+      setTimeout(() => {
+        // setOpenPopUp(true);
+        setBtnLoading(false);
+        props.setIsAuth(true)
+        navigate("/");
+      }, 3000);
+    }
   };
 
   return (
@@ -76,14 +118,14 @@ const OtpPage = () => {
               height: "60px",
               fontSize: "x-large",
             }}
-            // value={Otp}
-            // onChange={(otp)=>handleOtp(otp)}
+            value={fields?.otp}
+            onChange={(otp) => OTPHandler(otp)}
             separator={<span style={{ width: 8 }}></span>}
           />
         </div>
 
         <div className="mt-2" style={{ textAlign: "right" }}>
-          <Button
+          {/* <Button
             variant="contained"
             style={{
               backgroundColor: "var(--button-bg-color)",
@@ -95,8 +137,37 @@ const OtpPage = () => {
             // onClick={submitHandler}
           >
             Submit OTP
-          </Button>
+          </Button> */}
+          <LoadingButton
+            loading={btnLoading}
+            loadingPosition="start"
+            variant="contained"
+            style={{
+              backgroundColor: "var(--button-bg-color)",
+              color: "var(--button-color)",
+              width: "100%",
+              fontSize: "1.1rem",
+              letterSpacing: "1px",
+            }}
+            onClick={submitHandler}
+          >
+            Submit OTP
+          </LoadingButton>
         </div>
+        <Snackbar
+          open={openPopUp}
+          autoHideDuration={3000}
+          onClose={popUpCloseHandler}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          <Alert
+            onClose={popUpCloseHandler}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Your new password set successfully.
+          </Alert>
+        </Snackbar>
       </div>
     </CardWithTwoSection>
   );

@@ -23,13 +23,12 @@ import CardWithTwoSection from "../../Components/CardBox/CardWithTwoSection";
 import { LoadingButton } from "@mui/lab";
 // import UserUsingLaptopImg from '../../assets/images/person-using-laptop.png'
 
-const SignIn = (props) => {
+const SignIn = () => {
   const navigate = useNavigate();
   const emailInputRef = useRef(null);
   const mobilenputRef = useRef(null);
   const passInputRef = useRef(null);
   const [showPassword, seShowPassword] = useState(false);
-  const [showConfirmPassword, seShowConfirmPassword] = useState(false);
   const [isEmail, setIsEmail] = useState(true);
   const [openPopUp, setOpenPopUp] = useState(false);
   const [btnLoading, setBtnLoading] = useState(false);
@@ -150,8 +149,7 @@ const SignIn = (props) => {
       setTimeout(() => {
         // setOpenPopUp(true);
         setBtnLoading(false);
-        props.setIsAuth(true)
-        navigate("/");
+        navigate("/otp-verification");
       }, 3000);
     }
   };
@@ -314,7 +312,7 @@ const SignIn = (props) => {
               severity="success"
               sx={{ width: "100%" }}
             >
-              successfully logged in.
+              OTP sent to your email/phone.
             </Alert>
           </Snackbar>
       </div>

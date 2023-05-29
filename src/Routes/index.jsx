@@ -19,13 +19,13 @@ const Routing = () => {
         {!isAuth ? (
           <Route element={<PublicRoutes />}>
             <Route path="/" element={<SignUp />} />
-            <Route path="/sign-in" element={<SignIn setIsAuth={setIsAuth}/>} />
+            <Route path="/sign-in" element={<SignIn />} />
             <Route path="/forgot-password" element={<ForgetPassword />} />
             <Route
               path="/forgot-password-verification"
               element={<ForgetPasswordVerification />}
             />
-            <Route path="/otp-verification" element={<OtpPage />} />
+            <Route path="/otp-verification" element={<OtpPage  setIsAuth={setIsAuth}/>} />
           </Route>
         ) : (
           <Route element={<PrivateRoutes isAuth={isAuth}/>}>
