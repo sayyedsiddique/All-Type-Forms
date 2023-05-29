@@ -144,7 +144,7 @@ const ForgetPassword = () => {
             <p
               className="heading_para"
               style={{ cursor: "pointer" }}
-              onClick={() => navigate("/")}
+              onClick={() => navigate(-1)}
             >
               <BiArrowBack /> Go back to sign in page
             </p>

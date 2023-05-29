@@ -22,21 +22,21 @@ import { useNavigate } from "react-router-dom";
 import CardWithTwoSection from "../../Components/CardBox/CardWithTwoSection";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
-import LoadingButton from '@mui/lab/LoadingButton';
-import SaveIcon from '@mui/icons-material/Save';      
+import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
 
 const Registration = () => {
   const navigate = useNavigate();
-  const emailInputRef = useRef(null)
-  const mobilenputRef = useRef(null)
-  const passInputRef = useRef(null)
-  const confirmPassInputRef = useRef(null)
+  const emailInputRef = useRef(null);
+  const mobilenputRef = useRef(null);
+  const passInputRef = useRef(null);
+  const confirmPassInputRef = useRef(null);
   const [showPassword, seShowPassword] = useState(false);
   const [showConfirmPassword, seShowConfirmPassword] = useState(false);
   const [isEmail, setIsEmail] = useState(true);
   const [openPopUp, setOpenPopUp] = useState(false);
   const [btnLoading, setBtnLoading] = useState(false);
-  console.log("isEmail ",  isEmail)
+  console.log("isEmail ", isEmail);
 
   const [fields, setFields] = useState({
     email: "",
@@ -44,7 +44,7 @@ const Registration = () => {
     password: "",
     confirmPassword: "",
   });
-  console.log("fields ", fields)
+  console.log("fields ", fields);
 
   const [errors, setErrors] = useState({
     email: "",
@@ -56,10 +56,11 @@ const Registration = () => {
   // console.log("fields ", fields);
   console.log("errors ", errors);
 
+  // registeration form input fields handler
   const inputHandler = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    console.log("value ", value)
+    console.log("value ", value);
 
     if (name === "email") {
       setErrors({ ...errors, email: "" });
@@ -98,14 +99,14 @@ const Registration = () => {
       return false;
     } else if (isEmail === false && fields.phone === "") {
       setErrors({ ...errors, phone: "Please enter your phone" });
-      if(mobilenputRef.current){
-        mobilenputRef.current.focus()
+      if (mobilenputRef.current) {
+        mobilenputRef.current.focus();
       }
       return false;
     } else if (fields.password === "") {
       setErrors({ ...errors, password: "Please enter your password" });
-      if(passInputRef.current){
-        passInputRef.current.focus()
+      if (passInputRef.current) {
+        passInputRef.current.focus();
       }
       return false;
     } else if (isPassValid === false) {
@@ -114,8 +115,8 @@ const Registration = () => {
         password:
           "At least one uppercase, one lowercase, one number, one symbol and it should be 8 characters",
       });
-      if(passInputRef.current){
-        passInputRef.current.focus()
+      if (passInputRef.current) {
+        passInputRef.current.focus();
       }
       return false;
     } else if (fields.confirmPassword === "") {
@@ -123,8 +124,8 @@ const Registration = () => {
         ...errors,
         confirmPassword: "Please enter your confirmPassword",
       });
-      if(confirmPassInputRef.current){
-        confirmPassInputRef.current.focus()
+      if (confirmPassInputRef.current) {
+        confirmPassInputRef.current.focus();
       }
       return false;
     } else if (fields.password !== fields.confirmPassword) {
@@ -132,8 +133,8 @@ const Registration = () => {
         ...errors,
         confirmPassword: "it's not match with password",
       });
-      if(confirmPassInputRef.current){
-        confirmPassInputRef.current.focus()
+      if (confirmPassInputRef.current) {
+        confirmPassInputRef.current.focus();
       }
       return false;
     }
@@ -143,7 +144,7 @@ const Registration = () => {
 
   //   Register with Email or Mobile handle
   const registerWithHandler = () => {
-    setErrors({ ...errors, email:  "", phone:  "" })
+    setErrors({ ...errors, email: "", phone: "" });
     setFields({ ...fields, email: "", phone: "" });
     setIsEmail(!isEmail);
   };
@@ -393,7 +394,7 @@ const Registration = () => {
               severity="success"
               sx={{ width: "100%" }}
             >
-              This is a success message!
+              Your account created successfully.
             </Alert>
           </Snackbar>
         </div>

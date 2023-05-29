@@ -7,12 +7,10 @@ const useAuth = () => {
     return user && user.loggedIn;
   };
 
-const PrivateRoutes = () => {
+const PrivateRoutes = (props) => {
 
-    // const isAuth = useAuth()
-    const isAuth = true
   return (
-    isAuth ? <Outlet /> : <Navigate to="/" />
+    props?.isAuth ? <Outlet /> : <Navigate to="/" />
   )
 }
 
