@@ -13,7 +13,7 @@ import {
   Snackbar,
   TextField,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./SignUp.css";
 import { HiOutlineDevicePhoneMobile } from "react-icons/hi2";
 import { HiOutlineMail } from "react-icons/hi";
@@ -27,19 +27,24 @@ import SaveIcon from '@mui/icons-material/Save';
 
 const Registration = () => {
   const navigate = useNavigate();
+  const emailInputRef = useRef(null)
+  const mobilenputRef = useRef(null)
+  const passInputRef = useRef(null)
+  const confirmPassInputRef = useRef(null)
   const [showPassword, seShowPassword] = useState(false);
   const [showConfirmPassword, seShowConfirmPassword] = useState(false);
   const [isEmail, setIsEmail] = useState(true);
   const [openPopUp, setOpenPopUp] = useState(false);
   const [btnLoading, setBtnLoading] = useState(false);
-  console.log("btnLoading ",  btnLoading)
+  console.log("isEmail ",  isEmail)
 
   const [fields, setFields] = useState({
     email: "",
-    phone: "",
+    phone: null,
     password: "",
     confirmPassword: "",
   });
+  console.log("fields ", fields)
 
   const [errors, setErrors] = useState({
     email: "",
@@ -54,6 +59,7 @@ const Registration = () => {
   const inputHandler = (e) => {
     const name = e.target.name;
     const value = e.target.value;
+    console.log("value ", value)
 
     if (name === "email") {
       setErrors({ ...errors, email: "" });
@@ -78,17 +84,29 @@ const Registration = () => {
     const isEmailValid = regexEmail.test(fields.email);
     const isPassValid = regexPass.test(fields.password);
 
-    if (fields.email === "") {
+    if (isEmail === true && fields.email === "") {
       setErrors({ ...errors, email: "Please enter your email" });
+      if (emailInputRef.current) {
+        emailInputRef.current.focus();
+      }
       return false;
-    } else if (isEmailValid === false) {
+    } else if (isEmail === true && isEmailValid === false) {
       setErrors({ ...errors, email: "Please enter valid email" });
+      if (emailInputRef.current) {
+        emailInputRef.current.focus();
+      }
       return false;
     } else if (isEmail === false && fields.phone === "") {
       setErrors({ ...errors, phone: "Please enter your phone" });
+      if(mobilenputRef.current){
+        mobilenputRef.current.focus()
+      }
       return false;
     } else if (fields.password === "") {
       setErrors({ ...errors, password: "Please enter your password" });
+      if(passInputRef.current){
+        passInputRef.current.focus()
+      }
       return false;
     } else if (isPassValid === false) {
       setErrors({
@@ -96,18 +114,27 @@ const Registration = () => {
         password:
           "At least one uppercase, one lowercase, one number, one symbol and it should be 8 characters",
       });
+      if(passInputRef.current){
+        passInputRef.current.focus()
+      }
       return false;
     } else if (fields.confirmPassword === "") {
       setErrors({
         ...errors,
         confirmPassword: "Please enter your confirmPassword",
       });
+      if(confirmPassInputRef.current){
+        confirmPassInputRef.current.focus()
+      }
       return false;
     } else if (fields.password !== fields.confirmPassword) {
       setErrors({
         ...errors,
         confirmPassword: "it's not match with password",
       });
+      if(confirmPassInputRef.current){
+        confirmPassInputRef.current.focus()
+      }
       return false;
     }
 
@@ -116,6 +143,7 @@ const Registration = () => {
 
   //   Register with Email or Mobile handle
   const registerWithHandler = () => {
+    setErrors({ ...errors, email:  "", phone:  "" })
     setFields({ ...fields, email: "", phone: "" });
     setIsEmail(!isEmail);
   };
@@ -146,6 +174,7 @@ const Registration = () => {
       setBtnLoading(true);
 
       setTimeout(() => {
+        // setOpenPopUp(true);
         setBtnLoading(false);
         navigate("/sign-in");
       }, 3000);
@@ -184,7 +213,7 @@ const Registration = () => {
                 id="outlined-size-small"
                 size="small"
                 name="email"
-                // inputRef={prodNameInputRef}
+                inputRef={emailInputRef}
                 onChange={inputHandler}
                 value={fields.email}
               />
@@ -204,7 +233,9 @@ const Registration = () => {
                 id="outlined-size-small"
                 size="small"
                 name="phone"
-                // inputRef={prodNameInputRef}
+                inputRef={mobilenputRef}
+                type={"number"}
+                inputProps={{ maxLength: 7 }}
                 onChange={inputHandler}
                 value={fields.phone}
               />
@@ -225,6 +256,7 @@ const Registration = () => {
               size="small"
               name="password"
               type={showPassword ? "text" : "password"}
+              inputRef={passInputRef}
               InputProps={{
                 endAdornment: showPassword ? (
                   <VisibilityOff
@@ -240,7 +272,6 @@ const Registration = () => {
                   />
                 ),
               }}
-              // inputRef={prodNameInputRef}
               onChange={inputHandler}
             />
             {errors && errors?.password && (
@@ -284,6 +315,7 @@ const Registration = () => {
               size="small"
               name="confirmPassword"
               type={showConfirmPassword ? "text" : "password"}
+              inputRef={confirmPassInputRef}
               InputProps={{
                 endAdornment: showConfirmPassword ? (
                   <VisibilityOff
@@ -299,7 +331,6 @@ const Registration = () => {
                   />
                 ),
               }}
-              // inputRef={prodNameInputRef}
               onChange={inputHandler}
             />
             {errors && errors?.confirmPassword && (

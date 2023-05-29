@@ -65,3 +65,16 @@ body{
   border: 1px solid var(--gray-color);
   margin-bottom: 10px;
 }
+
+/* Hide arrows of number type input fields */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
