@@ -165,7 +165,7 @@ const OtpPage = (props) => {
             severity="success"
             sx={{ width: "100%" }}
           >
-            Your new password set successfully.
+            Loggedin successfully.
           </Alert>
         </Snackbar>
       </div>

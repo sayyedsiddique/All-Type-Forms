@@ -243,13 +243,13 @@ const ForgetPasswordVerification = () => {
               InputProps={{
                 endAdornment: showConfirmPassword ? (
                   <VisibilityOff
-                    style={{ cursor: "pointer" }}
+                  style={{ cursor: "pointer", color: "var(--gray-color)" }}
                     position="end"
                     onClick={confirmPasswordHandler}
                   />
                 ) : (
                   <Visibility
-                    style={{ cursor: "pointer" }}
+                  style={{ cursor: "pointer", color: "var(--gray-color)" }}
                     position="end"
                     onClick={confirmPasswordHandler}
                   />
