@@ -24,6 +24,7 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
+import personalUsingLaptop from "../../assets/person-using-laptop.png"
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -187,7 +188,7 @@ const Registration = () => {
       <>
         <div className="card_leftside">
           <img
-            src={"https://i.postimg.cc/Nj3LHpzd/person-using-laptop.png"}
+            src={personalUsingLaptop}
             alt=""
           />
         </div>

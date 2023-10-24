@@ -21,7 +21,8 @@ import PhoneInput from "react-phone-input-2";
 import { useNavigate } from "react-router-dom";
 import CardWithTwoSection from "../../Components/CardBox/CardWithTwoSection";
 import { LoadingButton } from "@mui/lab";
-// import UserUsingLaptopImg from '../../assets/images/person-using-laptop.png'
+import personalUsingLaptop from "../../assets/person-using-laptop.png"
+
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -159,7 +160,7 @@ const SignIn = () => {
       <div className="registration_leftside">
         {/* <h1>LEFT SIDE</h1> */}
         <img
-          src={"https://i.postimg.cc/Nj3LHpzd/person-using-laptop.png"}
+          src={personalUsingLaptop}
           alt="signin leftside image"
         />
       </div>
